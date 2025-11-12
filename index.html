@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>📊 Engulfing_ProfitExit — ملخص النظام 12to24 و التقارير السنوية</title>
+  <meta name="theme-color" content="#0f1724">
+  <style>
+    :root{
+      --bg:#071018; /* very dark */
+      --panel:#0f1724; /* card */
+      --muted:#9aa5b1;
+      --gold:#d4af37;
+      --accent:rgba(212,175,55,0.06);
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      --gap:14px;
+      --maxw:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; padding:24px; min-height:100%;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial;
+      background:var(--bg); color:#e6eef3; -webkit-font-smoothing:antialiased;
+      display:flex; align-items:flex-start; justify-content:center;
+    }
+    .wrap{width:100%; max-width:var(--maxw)}
+
+    header{display:flex; align-items:center; gap:12px; margin-bottom:18px}
+    .back{width:48px; height:48px; border-radius:12px; display:inline-grid; place-items:center; background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--gold); cursor:pointer}
+    .title{margin:0; font-size:clamp(18px,2.4vw,24px); color:var(--gold); font-weight:700}
+    .subtitle{margin:4px 0 0 0; color:var(--muted); font-size:clamp(12px,1.6vw,14px)}
+
+    /* responsive grid: right panel gets fixed-width but flexible; on small screens stacks with special on top */
+    .top-grid{display:grid; grid-template-columns:1fr min(420px,36%); gap:16px; align-items:start}
+    @media (max-width:1024px){.top-grid{grid-template-columns:1fr min(380px,40%)}}
+    @media (max-width:860px){
+      .top-grid{grid-template-columns:1fr}
+      /* make special panel render first on narrow screens */
+      .special{order:-1}
+    }
+
+    /* left: reports list */
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:var(--radius); padding:16px; border:1px solid rgba(255,255,255,0.04)}
+  .reports{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px; list-style:none; padding:0; margin:0}
+  .card{background:var(--panel); border-radius:10px; padding:0; display:block; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,0.03); min-height:68px}
+  .card-link{display:flex; flex-direction:column; gap:6px; padding:14px; height:100%; width:100%; text-decoration:none; color:inherit}
+  .card-link .title-sm{font-weight:700; color:var(--gold)}
+  .card-link small{color:var(--muted)}
+
+    /* right: special 12to24 panel */
+  .special{position:relative; padding:18px; border-radius:12px; background:linear-gradient(180deg,#071519,#061016); border:1px solid rgba(212,175,55,0.08)}
+    /* new: make special full-width on top when stacking */
+    @media (max-width:860px){
+      .special{grid-column:1 / -1}
+    }
+
+    /* search/filter */
+    .filter-row{display:flex; gap:8px; align-items:center; margin-bottom:12px}
+    .filter-row input[type="search"]{flex:1; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit}
+    .filter-row select{padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit}
+    .special h3{margin:0 0 6px 0; color:var(--gold); font-size:16px}
+    .stat-row{display:flex; gap:10px; flex-wrap:wrap}
+    .stat{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:10px; border-radius:8px; min-width:120px; text-align:center}
+    .stat b{display:block; color:#fff; font-size:16px}
+    .explain{margin-top:12px; color:var(--muted); font-size:13px; line-height:1.35}
+
+  .cta{display:flex; gap:8px; margin-top:12px}
+  .btn{background:linear-gradient(90deg,var(--gold), #b8860b); color:#071018; padding:10px 14px; border-radius:10px; font-weight:700; border:none; cursor:pointer}
+  .btn.ghost{background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.04)}
+  @media (max-width:420px){.cta{flex-direction:column} .btn{width:100%}}
+
+    /* calculator */
+    .calc{margin-top:12px; display:flex; flex-direction:column; gap:8px}
+  .row{display:flex; gap:8px}
+  .row input[type="number"]{flex:1; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit}
+  @media (max-width:420px){.row{flex-direction:column} .row input[type="number"]{width:100%}}
+    .result{background:rgba(255,255,255,0.02); padding:10px; border-radius:8px; color:var(--gold)}
+
+    footer{margin-top:18px; color:var(--muted); font-size:12px; text-align:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <button class="back" aria-label="عودة" onclick="try{history.back()}catch(e){location.href='.'}">⤺</button>
+      <div style="min-width:0">
+        <h1 class="title">📊 Engulfing_ProfitExit — الملخص الحديث</h1>
+        <div class="subtitle">واجهة مظلمة حديثة. تجربة النظام المجمّع 12→24 مميزة وتستخدم نظام لوت مختلف.</div>
+      </div>
+    </header>
+
+    <div class="top-grid">
+      <section class="panel">
+        <div class="filter-row">
+          <input id="search" type="search" placeholder="ابحث عن سنة، مثال: 2019" aria-label="بحث" />
+          <select id="yearFilter" aria-label="تصفية السنة">
+            <option value="all">كل السنوات</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+          </select>
+        </div>
+        <h3 style="margin:0 0 10px 0">التقارير السنوية</h3>
+        <ul id="reportsList" class="reports">
+          <li class="card" data-year="2012"><a class="card-link" href="gecmis/2012.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2012</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2013"><a class="card-link" href="gecmis/2013.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2013</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2014"><a class="card-link" href="gecmis/2014.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2014</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2015"><a class="card-link" href="gecmis/2015.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2015</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2016"><a class="card-link" href="gecmis/2016.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2016</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2017"><a class="card-link" href="gecmis/2017.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2017</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2018"><a class="card-link" href="gecmis/2018.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2018</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2019"><a class="card-link" href="gecmis/2019.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2019</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2020"><a class="card-link" href="gecmis/2020.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2020</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2021"><a class="card-link" href="gecmis/2021.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2021</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2022"><a class="card-link" href="gecmis/2022.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2022</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2023"><a class="card-link" href="gecmis/2023.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2023</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2024"><a class="card-link" href="gecmis/2024.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2024</span><small>فتح التقرير</small></a></li>
+          <li class="card" data-year="2025"><a class="card-link" href="gecmis/2025.html" target="_blank" rel="noopener noreferrer"><span class="title-sm">تقرير 2025</span><small>فتح التقرير</small></a></li>
+        </ul>
+      </section>
+
+      <aside class="special panel">
+        <h3>تجربة 12 → 24 (نظام لوت مختلف)</h3>
+        <!-- Embedded key stats (extracted from 12to24.html) -->
+        <div class="stat-row">
+          <div class="stat"><small>ROI</small><b>174,960.57%</b></div>
+          <div class="stat"><small>صافي الربح (USD)</small><b>17,496,057</b></div>
+          <div class="stat"><small>رصيد ابتدائي (USD)</small><b>10,000</b></div>
+          <div class="stat"><small>رصيد نهائي (USD)</small><b>17,506,056.99</b></div>
+        </div>
+
+        <div class="explain">
+          هذا التقرير المجمّع يشمل الفترة من <strong>19/06/2012</strong> إلى <strong>01/01/2024</strong>.
+          النظام المستخدم في هذا الملف يعمل بنظام لوت مختلف (12→24). أسفل يوجد شرح مُرتّب ومحرّك لحساب "نسبة المخاطرة لكل صفقة" (Risk % per trade).
+        </div>
+
+        <div class="cta">
+          <button class="btn" onclick="window.open('12to24.html','_blank')">عرض تجربة 12to24</button>
+          <button class="btn ghost" onclick="document.getElementById('calc').scrollIntoView({behavior:'smooth'})">شرح المخاطرة</button>
+        </div>
+
+        <div id="calc" class="calc">
+          <h4 style="margin:0 0 6px 0;color:var(--gold)">شرح المخاطرة (Risk % per trade)</h4>
+          <div class="explain" style="margin-top:8px; color:var(--muted); font-size:13px; line-height:1.4">
+            تُستخدم نسبة المخاطرة لكل صفقة (Risk %) لتحديد الجزء من الرصيد الذي تكون مستعدًا للمخاطرة به في صفقة واحدة.
+            عادةً يُحتسب المبلغ المعرض للخطر بهذه الصيغة: <em>Risk Amount = Balance × (Risk% / 100)</em>.
+            لتحديد حجم العقد (Lot) بدقة تحتاج أيضًا إلى معرفة قيمة النقطة (pip value) وكمية نقاط وقف الخسارة (stop-loss). إذا رغبت، أضيف حاسبة لوت تفاعلية تقبل هذه القيم وتحسب اللوت تلقائيًا.
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>تحديث: 2025-11-12 — تواصل لأضيف إحصائيات أعمق (معدل الربح، معدل الفوز، أقصى هبوط equity) إن رغبت.</footer>
+  </div>
+
+  <script>
+    // Search and filter for reports
+    const searchEl = document.getElementById('search');
+    const yearFilter = document.getElementById('yearFilter');
+    const reportsList = document.getElementById('reportsList');
+    function filterReports(){
+      const q = (searchEl.value||'').trim();
+      const year = yearFilter.value;
+      const items = reportsList.querySelectorAll('.card');
+      items.forEach(li=>{
+        const y = li.getAttribute('data-year') || '';
+        const title = li.textContent || '';
+        let visible = true;
+        if(year !== 'all' && year !== y) visible = false;
+        if(q && !title.includes(q)) visible = false;
+        li.style.display = visible ? '' : 'none';
+      });
+    }
+    searchEl.addEventListener('input', filterReports);
+    yearFilter.addEventListener('change', filterReports);
+
+    // Accessibility: allow Enter key on search to focus first visible report
+    searchEl.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        const first = reportsList.querySelector('.card:not([style*="display: none"]) .card-link');
+        if(first) first.focus();
+      }
+    });
+  </script>
+</body>
+</html>
